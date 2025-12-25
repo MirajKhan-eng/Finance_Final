@@ -7,6 +7,7 @@ import LandingPage from './screens/LandingPage';
 import LoginPage from './screens/LoginPage';
 import SignupPage from './screens/SignupPage';
 import MainApp from './MainApp'; // This is your Dashboard Code
+import GuidancePage from './screens/GuidancePage';
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
         {/* Catch-all: Redirect random URLs back to Home */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      
     </Router>
   );
 };

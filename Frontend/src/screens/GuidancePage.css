@@ -1,0 +1,138 @@
+/* Main Page Layout */
+.guidance-container {
+  padding: 30px;
+  background-color: #f8fafc;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+}
+
+.page-header { margin-bottom: 30px; }
+.page-header h1 { font-size: 28px; color: #1e293b; margin: 0; font-weight: 700; }
+.page-header p { color: #64748b; margin-top: 5px; }
+
+/* Grid Layout */
+.guidance-grid { display: grid; grid-template-columns: 2.5fr 1fr; gap: 24px; }
+.main-content { display: flex; flexDirection: column; gap: 24px; }
+
+/* Tabs */
+.tabs-container { background: white; padding: 10px; border-radius: 12px; display: flex; gap: 10px; margin-bottom: 24px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); overflow-x: auto; }
+.tab-btn { display: flex; align-items: center; gap: 8px; padding: 10px 20px; border: none; background: transparent; color: #64748b; font-weight: 600; border-radius: 50px; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+.tab-btn:hover { background-color: #f1f5f9; }
+.tab-btn.active { background-color: #2563eb; color: white; box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3); }
+
+/* Main Card */
+.main-card { background: white; border-radius: 16px; padding: 32px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+.section-title { font-size: 20px; font-weight: 600; color: #1e293b; margin-bottom: 24px; }
+
+/* Inputs (Global) */
+.input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+.input-row.single-input { grid-template-columns: 1fr; }
+.input-group label { display: block; font-size: 14px; font-weight: 600; color: #1e293b; margin-bottom: 8px; }
+.input-group input, .input-group select { width: 100%; padding: 12px 16px; background-color: #f1f5f9; border: 1px solid transparent; border-radius: 8px; font-size: 16px; font-weight: 500; color: #0f172a; transition: 0.2s; box-sizing: border-box; }
+.input-group input:focus { outline: none; background-color: white; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+
+/* Checkboxes */
+.checkbox-group { margin-top: 20px; display: flex; flex-direction: column; gap: 12px; }
+.checkbox-item { display: flex; align-items: center; gap: 10px; font-weight: 500; color: #1e293b; }
+.checkbox-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: #1e293b; }
+
+/* Health Score */
+.score-display { text-align: center; margin-bottom: 40px; }
+.big-score { font-size: 80px; font-weight: 800; color: #2563eb; line-height: 1; }
+.score-grade { font-size: 24px; font-weight: 600; color: #1e293b; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.score-text { color: #64748b; font-size: 16px; margin-top: 5px; }
+.progress-bar-container { height: 16px; background-color: #e2e8f0; border-radius: 10px; margin: 25px auto; width: 90%; overflow: hidden; }
+.progress-fill { height: 100%; background-color: #0f172a; border-radius: 10px; transition: width 0.5s ease; }
+.score-breakdown { background-color: #f8fafc; padding: 25px; border-radius: 12px; margin-top: 30px; }
+.breakdown-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e2e8f0; color: #475569; font-weight: 500; }
+.breakdown-item:last-child { border-bottom: none; }
+
+/* Quick Start */
+.quick-start-steps { display: flex; flex-direction: column; gap: 16px; }
+.step-item { display: flex; align-items: flex-start; gap: 16px; padding: 20px; border-radius: 12px; }
+.step-number { flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; }
+.step-content h4 { margin: 0 0 5px 0; font-size: 16px; font-weight: 600; color: #1e293b; }
+.step-content p { margin: 0; font-size: 14px; color: #475569; line-height: 1.4; }
+.step-blue { background-color: #eff6ff; } .step-blue .step-number { background-color: #2563eb; }
+.step-green { background-color: #f0fdf4; } .step-green .step-number { background-color: #16a34a; }
+.step-purple { background-color: #faf5ff; } .step-purple .step-number { background-color: #9333ea; }
+
+/* Sidebar */
+.tips-sidebar { display: flex; flex-direction: column; gap: 20px; }
+.sidebar-header { font-weight: 600; font-size: 18px; color: #1e293b; display: flex; align-items: center; gap: 8px; }
+.tip-card { padding: 20px; border-radius: 12px; border: 1px solid transparent; }
+.tip-card.orange { background-color: #fff7ed; border-color: #ffedd5; }
+.tip-card.green { background-color: #f0fdf4; border-color: #dcfce7; }
+.tip-card.red { background-color: #fef2f2; border-color: #fee2e2; }
+.tip-card.blue { background-color: #eff6ff; border-color: #dbeafe; }
+.tip-card.purple { background-color: #faf5ff; border-color: #f3e8ff; }
+.tip-card h4 { margin: 0 0 8px 0; color: #1e293b; font-size: 16px; }
+.tip-card p { margin: 0; font-size: 14px; color: #475569; line-height: 1.5; }
+
+/* Emergency Fund */
+.fund-progress-card { border: 2px solid #3b82f6; background-color: #eff6ff; padding: 20px; border-radius: 12px; margin-top: 20px; }
+.fund-stats { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 10px; }
+
+/* Budget Chart States */
+.selected-card { transform: scale(1.02); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); border-width: 2px; cursor: pointer; }
+.dimmed-card { opacity: 0.5; transform: scale(0.98); cursor: pointer; }
+.tip-card.purple.selected-card { border-color: #9333ea !important; }
+
+/* Investing */
+.invest-inputs-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 30px; align-items: center; }
+input[type=range] { width: 100%; cursor: pointer; }
+.range-purple { accent-color: #7c3aed; }
+.invest-results-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 30px; }
+.result-card { padding: 20px; border-radius: 12px; text-align: center; border: 1px solid transparent; }
+.result-card span { font-size: 14px; color: #64748b; font-weight: 500; }
+.result-card h3 { font-size: 24px; margin: 8px 0 0 0; font-weight: 700; }
+.result-card.blue { background-color: #eff6ff; border-color: #dbeafe; color: #2563eb; }
+.result-card.green { background-color: #f0fdf4; border-color: #dcfce7; color: #16a34a; }
+.result-card.purple { background-color: #faf5ff; border-color: #f3e8ff; color: #7c3aed; }
+.graph-container { margin-bottom: 30px; background-color: #ffffff; position: relative; }
+.invest-graph { width: 100%; height: auto; min-height: 250px; overflow: visible; }
+.magic-section { background-color: #faf5ff; border: 1px solid #f3e8ff; border-radius: 12px; padding: 20px; margin-bottom: 30px; }
+.magic-header { display: flex; align-items: center; gap: 8px; margin-bottom: 15px; }
+.magic-list { list-style: none; padding: 0; margin: 0 0 15px 0; display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: #475569; }
+.magic-list li:before { content: "•"; color: #7c3aed; font-weight: bold; margin-right: 8px; }
+
+/* Retirement */
+.retirement-plan-card { background-color: #faf5ff; border: 1px solid #f3e8ff; border-radius: 12px; padding: 24px; margin-top: 30px; margin-bottom: 30px; }
+.plan-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+.plan-header h4 { margin: 0; font-size: 18px; color: #1e293b; font-weight: 700; }
+.plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #e9d5ff; }
+.plan-label { font-size: 14px; color: #6b7280; margin-bottom: 4px; }
+.plan-value { font-size: 32px; font-weight: 800; color: #9333ea; line-height: 1.2; }
+.plan-sub { font-size: 12px; color: #6b7280; margin-top: 4px; }
+.plan-details-list { display: flex; flex-direction: column; gap: 12px; background: white; padding: 16px; border-radius: 8px; }
+.detail-row { display: flex; justify-content: space-between; font-size: 14px; color: #4b5563; }
+.chart-section { margin-bottom: 30px; }
+.allocation-card { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; }
+
+/* --- DEBT TAB STYLES --- */
+.debt-item-card { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 20px; position: relative; }
+.debt-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; }
+.debt-name { font-weight: 700; color: #1e293b; font-size: 16px; }
+.delete-btn { background: none; border: none; color: #ef4444; cursor: pointer; padding: 4px; border-radius: 4px; transition: background 0.2s; }
+.delete-btn:hover { background-color: #fee2e2; }
+.debt-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 15px; }
+.debt-label { display: block; font-size: 12px; color: #64748b; margin-bottom: 4px; font-weight: 500; }
+.debt-value-box { background: white; border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px 12px; font-size: 14px; font-weight: 600; color: #334155; }
+.priority-badge { font-size: 12px; color: #64748b; font-weight: 500; text-align: right; display: block; width: 100%; }
+.add-debt-btn { width: 100%; padding: 14px; background-color: white; border: 1px dashed #cbd5e1; color: #1e293b; font-weight: 600; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s; margin-bottom: 30px; }
+.add-debt-btn:hover { background-color: #f1f5f9; border-color: #94a3b8; }
+.add-debt-form { background-color: #eff6ff; padding: 24px; border-radius: 12px; border: 1px solid #dbeafe; margin-bottom: 30px; }
+.add-debt-form h4 { margin: 0 0 20px 0; color: #1e293b; }
+.save-btn { background-color: #2563eb; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+.cancel-btn { background-color: white; color: #64748b; border: 1px solid #cbd5e1; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+.strategy-card { background-color: #f0fdf4; border: 1px solid #dcfce7; border-radius: 12px; padding: 20px; }
+.strategy-title { margin: 0 0 10px 0; color: #166534; font-size: 16px; font-weight: 700; }
+.strategy-desc { margin: 0; font-size: 14px; color: #15803d; line-height: 1.5; }
+
+@media (max-width: 768px) {
+  .invest-inputs-grid, .invest-results-row, .invest-type-row { grid-template-columns: 1fr; }
+  .plan-grid { grid-template-columns: 1fr; gap: 20px; }
+}
+@media (max-width: 600px) {
+  .debt-grid { grid-template-columns: 1fr 1fr; }
+}

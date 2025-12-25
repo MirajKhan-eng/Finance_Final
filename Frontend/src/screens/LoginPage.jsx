@@ -18,13 +18,13 @@ const LoginPage = () => {
       <div className="login-visual">
         <div className="visual-content">
           <h2>Financial clarity, finally.</h2>
-          <p>Join thousands of professionals who trust Flux to secure and optimize their wealth.</p>
+          <p>Join thousands of professionals who trust Capital to secure and optimize their wealth.</p>
         </div>
       </div>
 
       <div className="login-form-container">
         <div className="login-card">
-          <div className="logo">Flux<span>.AI</span></div>
+          <div className="logo">Capital<span> OS</span></div>
           <div className="header-text">
             <h1>Welcome back</h1>
             <p>Please enter your details to Login.</p>

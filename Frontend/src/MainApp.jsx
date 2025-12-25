@@ -1,233 +1,185 @@
-import React, { useState } from 'react';
-import {
-  LayoutDashboard,
-  Receipt,
-  Bell,
-  Wallet,
-  FileText,
-  LineChart
+import React, { useState, useEffect } from 'react';
+import { 
+  LayoutDashboard, Receipt, LineChart, ShieldAlert, User, Bell, 
+  Wallet, Calculator, Compass, X 
 } from 'lucide-react';
 
+// --- Screen Imports ---
+import ChatAssistant from './screens/ChatAssistant';
+import { fetchDashboardData } from './api'; 
 
-import {
-  PieChart,
-  Pie,
-  Cell,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  CartesianGrid
-} from 'recharts';
-
+import DashboardScreen from './screens/DashboardScreen'; 
 import TransactionScreen from './screens/TransactionScreen';
-import InsightsScreen from './screens/InsightsScreen';
-
-
-// 🔹 ZERO STATE DASHBOARD DATA (NEW USER)
-const DASHBOARD_DATA = {
-  balance: 0,
-  monthlySpend: 0,
-
-  pieData: [
-    { name: 'Food', value: 0, color: '#6366F1' },
-    { name: 'Transport', value: 0, color: '#22C55E' },
-    { name: 'Shopping', value: 0, color: '#F97316' },
-    { name: 'Bills', value: 0, color: '#EF4444' }
-  ],
-
-  barData: [
-    { name: 'Week 1', budget: 0, actual: 0 },
-    { name: 'Week 2', budget: 0, actual: 0 },
-    { name: 'Week 3', budget: 0, actual: 0 },
-    { name: 'Week 4', budget: 0, actual: 0 }
-  ]
-};
+import InsightsScreen from './screens/InsightsScreen'; 
+import FraudAlerts from './screens/FraudAlerts';
+import BudgetCalculator from './screens/BudgetCalculator';
+import GuidancePage from './screens/GuidancePage';
+import ProfileScreen from './screens/ProfileScreen'; 
 
 const MainApp = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
-  const data = DASHBOARD_DATA;
+  const [chatData, setChatData] = useState(null);
+  const [showNotifications, setShowNotifications] = useState(false);
 
-  // --- DASHBOARD CONTENT ---
-  const renderDashboardContent = () => (
-    <>
-      {/* TITLE */}
-      <div style={styles.pageTitleSection}>
-        <h1 style={styles.pageTitle}>Dashboard</h1>
-        <p style={styles.pageSubtitle}>
-          Welcome! Your financial activity will appear here once you start.
-        </p>
-      </div>
+  // --- 1. LIFTED STATE: User Profile lives here now ---
+  const [userProfile, setUserProfile] = useState({
+    name: "Miraj Khan",
+    role: "Premium Member",
+    avatar: "MK"
+  });
 
-      {/* CARDS */}
-      <div style={styles.cardsGrid}>
-        <div style={styles.blueCard}>
-          <div style={styles.cardHeader}>
-            <span style={styles.blueCardLabel}>Total Balance</span>
-            <Wallet color="white" size={24} />
-          </div>
-          <div style={styles.balanceValue}>₹{data.balance}</div>
-          <div style={styles.blueCardFooter}>
-            <span style={styles.blueCardSubtext}>No transactions yet</span>
-          </div>
-        </div>
+  // Load User Data & Dashboard Data on Start
+  useEffect(() => {
+    const loadData = async () => {
+        // 1. Fetch Dashboard Data
+        const response = await fetchDashboardData();
+        setChatData(response);
 
-        <div style={styles.whiteCard}>
-          <div style={styles.cardHeader}>
-            <span style={styles.cardLabel}>Monthly Spend</span>
-            <FileText color="#9CA3AF" size={24} />
-          </div>
-          <div style={styles.spendValue}>₹{data.monthlySpend}</div>
-          <div style={styles.cardFooter}>
-            <span style={styles.cardSubtext}>Start spending to see insights</span>
-          </div>
-        </div>
-      </div>
+        // 2. Load Profile from LocalStorage (Persist Login)
+        const savedProfile = localStorage.getItem('capitalUser');
+        if (savedProfile) {
+            const parsed = JSON.parse(savedProfile);
+            setUserProfile({
+                name: `${parsed.firstName} ${parsed.lastName}`,
+                role: parsed.role,
+                avatar: `${parsed.firstName[0]}${parsed.lastName[0]}`
+            });
+        }
+    };
+    loadData();
+  }, []);
 
-      {/* CHARTS */}
-      <div style={styles.chartsGrid}>
-        <div style={styles.chartCard}>
-          <h3 style={styles.chartTitle}>Expense by Category</h3>
-          <div style={{ height: 300 }}>
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={data.pieData}
-                  innerRadius={60}
-                  outerRadius={100}
-                  dataKey="value"
-                >
-                  {data.pieData.map((entry, index) => (
-                    <Cell key={index} fill={entry.color} />
-                  ))}
-                </Pie>
-                <Tooltip />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-          <p style={styles.chartHint}>No expenses recorded yet</p>
-        </div>
+  // --- 2. UPDATE FUNCTION: Passed down to ProfileScreen ---
+  const handleProfileUpdate = (updatedData) => {
+      setUserProfile({
+          name: `${updatedData.firstName} ${updatedData.lastName}`,
+          role: updatedData.role,
+          avatar: `${updatedData.firstName[0]}${updatedData.lastName[0]}`
+      });
+  };
 
-        <div style={styles.chartCard}>
-          <h3 style={styles.chartTitle}>Budget vs Actual</h3>
-          <div style={{ height: 300 }}>
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={data.barData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="budget" fill="#E5E7EB" />
-                <Bar dataKey="actual" fill="#3B82F6" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-          <p style={styles.chartHint}>Set a budget to track spending</p>
-        </div>
-      </div>
-    </>
-  );
+  const notifications = [
+      { id: 1, title: 'Salary Credited', msg: 'Your salary of ₹85,000 has been credited.', time: '2 hrs ago', type: 'success' },
+      { id: 2, title: 'Budget Exceeded', msg: 'You exceeded your Dining budget by ₹2,000.', time: '5 hrs ago', type: 'warning' },
+      { id: 3, title: 'New Feature', msg: 'Check out the new Retirement Planner tab!', time: '1 day ago', type: 'info' },
+  ];
 
   return (
     <div style={styles.appContainer}>
-      {/* SIDEBAR */}
       <aside style={styles.sidebar}>
-        <div style={styles.logoContainer}>
-          <div style={styles.logoIcon}>
-            <Wallet color="white" size={20} />
-          </div>
-          <h2 style={styles.logoText}>FinanceHub</h2>
+         <div style={styles.logoContainer}>
+          <div style={styles.logoIcon}><Wallet color="white" size={20} /></div>
+          <h2 style={styles.logoText}>Capital OS</h2>
         </div>
-
-        <nav style={styles.nav}>
-          <NavItem
-            icon={<LayoutDashboard size={20} />}
-            label="Dashboard"
-            active={activeTab === 'dashboard'}
-            onClick={() => setActiveTab('dashboard')}
-          />
-          <NavItem
-            icon={<Receipt size={20} />}
-            label="Transactions"
-            active={activeTab === 'transactions'}
-            onClick={() => setActiveTab('transactions')}
-          />
-          <NavItem
-  icon={<LineChart size={20} />}
-  label="Insights"
-  active={activeTab === 'insights'}
-  onClick={() => setActiveTab('insights')}
-/>
-
         
+        <nav style={styles.nav}>
+          <NavItem icon={<LayoutDashboard size={20} />} label="Dashboard" active={activeTab === 'dashboard'} onClick={() => setActiveTab('dashboard')} />
+          <NavItem icon={<Receipt size={20} />} label="Transactions" active={activeTab === 'transactions'} onClick={() => setActiveTab('transactions')} />
+          <NavItem icon={<LineChart size={20} />} label="Insights" active={activeTab === 'insights'} onClick={() => setActiveTab('insights')} />
+          <NavItem icon={<ShieldAlert size={20} />} label="Fraud Alerts" active={activeTab === 'Fraud Alerts'} onClick={() => setActiveTab('Fraud Alerts')} />
+          <NavItem icon={<Calculator size={20} />} label="Budget Calculator" active={activeTab === 'calculator'} onClick={() => setActiveTab('calculator')} />
+          <NavItem icon={<Compass size={20} />} label="Guidance" active={activeTab === 'guidance'} onClick={() => setActiveTab('guidance')} />
+          <NavItem icon={<User size={20} />} label="Profile" active={activeTab === 'profile'} onClick={() => setActiveTab('profile')} />
         </nav>
       </aside>
 
-      {/* MAIN */}
       <main style={styles.main}>
         <header style={styles.header}>
-          <div style={styles.profileSection}>
-            <Bell color="#6B7280" size={20} />
-            <div style={styles.avatar}>U</div>
-          </div>
+            <div style={styles.profileSection}>
+                <div style={{ position: 'relative' }}>
+                    <div style={{ cursor: 'pointer', position: 'relative' }} onClick={() => setShowNotifications(!showNotifications)}>
+                        <Bell color="#6B7280" size={20} style={{ marginRight: 20 }} />
+                        {showNotifications && <div style={{ position: 'absolute', top: -2, right: 18, width: 8, height: 8, backgroundColor: '#EF4444', borderRadius: '50%', border: '2px solid white' }}></div>}
+                    </div>
+                    {showNotifications && (
+                        <div style={styles.notificationPopup}>
+                            <div style={styles.popupHeader}>
+                                <h4 style={{ margin: 0, fontSize: '14px', fontWeight: 'bold' }}>Notifications</h4>
+                                <X size={16} style={{ cursor: 'pointer', color: '#6B7280' }} onClick={() => setShowNotifications(false)} />
+                            </div>
+                            <div style={styles.notificationList}>
+                                {notifications.map(notif => (
+                                    <div key={notif.id} style={styles.notificationItem}>
+                                        <div style={{ width: 8, height: 8, borderRadius: '50%', flexShrink: 0, marginTop: 4, backgroundColor: notif.type === 'success' ? '#10B981' : notif.type === 'warning' ? '#F59E0B' : '#3B82F6' }}></div>
+                                        <div>
+                                            <div style={{ fontSize: '13px', fontWeight: '600', color: '#1F2937' }}>{notif.title}</div>
+                                            <div style={{ fontSize: '12px', color: '#4B5563', margin: '2px 0' }}>{notif.msg}</div>
+                                            <div style={{ fontSize: '11px', color: '#9CA3AF' }}>{notif.time}</div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <div style={styles.popupFooter}>Mark all as read</div>
+                        </div>
+                    )}
+                </div>
+
+                <div style={styles.userInfo}>
+                <div style={styles.userDetails}>
+                    {/* --- DYNAMIC HEADER DATA --- */}
+                    <span style={styles.userName}>{userProfile.name}</span>
+                    <span style={styles.userRole}>{userProfile.role}</span>
+                </div>
+                <div style={styles.avatar}>{userProfile.avatar}</div>
+                </div>
+            </div>
         </header>
 
-        <div style={styles.contentScroll}>
-  {activeTab === 'dashboard' && renderDashboardContent()}
-  {activeTab === 'transactions' && <TransactionScreen />}
-  {activeTab === 'insights' && <InsightsScreen />}
-</div>
+        <div className="dashboard-scroll" style={{
+            ...styles.contentScroll,
+            padding: activeTab === 'calculator' ? '0' : '32px',
+            backgroundColor: activeTab === 'calculator' ? '#F9FAFB' : 'transparent' 
+        }}>
+            
+            {activeTab === 'dashboard' && <DashboardScreen />}
+            {activeTab === 'transactions' && <TransactionScreen />}
+            {activeTab === 'insights' && <InsightsScreen />}
+            {activeTab === 'Fraud Alerts' && <FraudAlerts />}
+            {activeTab === 'calculator' && <BudgetCalculator />}
+            {activeTab === 'guidance' && <GuidancePage />}
+            
+            {/* --- PASS CALLBACK TO PROFILE --- */}
+            {activeTab === 'profile' && <ProfileScreen onProfileUpdate={handleProfileUpdate} />}
 
+        </div>
       </main>
+
+      {chatData && <ChatAssistant dashboardData={chatData} />}
+      
     </div>
   );
 };
 
-// --- NAV ITEM ---
 const NavItem = ({ icon, label, active, onClick }) => (
-  <div
-    onClick={onClick}
-    style={{
-      ...styles.navItem,
-      ...(active ? styles.navItemActive : {})
-    }}
-  >
-    {icon}
-    <span style={styles.navLabel}>{label}</span>
-  </div>
+    <div onClick={onClick} style={{...styles.navItem, ...(active ? styles.navItemActive : {}), color: active ? '#2563EB' : '#4B5563'}}>
+      {icon} <span style={styles.navLabel}>{label}</span>
+    </div>
 );
 
-// --- STYLES ---
 const styles = {
-  appContainer: { display: 'flex', height: '100vh', backgroundColor: '#F3F4F6' },
-  sidebar: { width: 260, backgroundColor: '#fff', borderRight: '1px solid #E5E7EB', padding: 24 },
-  logoContainer: { display: 'flex', alignItems: 'center', gap: 12, marginBottom: 40 },
-  logoIcon: { width: 32, height: 32, backgroundColor: '#2563EB', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' },
-  logoText: { fontSize: 20, fontWeight: 'bold' },
-  nav: { display: 'flex', flexDirection: 'column', gap: 8 },
-  navItem: { display: 'flex', alignItems: 'center', padding: '12px 16px', borderRadius: 8, cursor: 'pointer' },
-  navItemActive: { backgroundColor: '#EFF6FF', color: '#2563EB' },
-  navLabel: { marginLeft: 12 },
-  main: { flex: 1, display: 'flex', flexDirection: 'column' },
-  header: { height: 70, backgroundColor: '#fff', borderBottom: '1px solid #E5E7EB', display: 'flex', justifyContent: 'flex-end', padding: '0 32px', alignItems: 'center' },
-  profileSection: { display: 'flex', alignItems: 'center', gap: 12 },
-  avatar: { width: 36, height: 36, borderRadius: '50%', backgroundColor: '#8B5CF6', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' },
-  contentScroll: { flex: 1, padding: 32, overflowY: 'auto' },
-  pageTitleSection: { marginBottom: 32 },
-  pageTitle: { fontSize: 28, fontWeight: 'bold' },
-  pageSubtitle: { color: '#6B7280' },
-  cardsGrid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 24, marginBottom: 32 },
-  blueCard: { backgroundColor: '#1D4ED8', borderRadius: 16, padding: 24, color: '#fff' },
-  whiteCard: { backgroundColor: '#fff', borderRadius: 16, padding: 24 },
-  cardHeader: { display: 'flex', justifyContent: 'space-between', marginBottom: 16 },
-  balanceValue: { fontSize: 36, fontWeight: 'bold' },
-  spendValue: { fontSize: 36, fontWeight: 'bold' },
-  chartsGrid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: 24 },
-  chartCard: { backgroundColor: '#fff', padding: 24, borderRadius: 16 },
-  chartTitle: { fontSize: 18, fontWeight: 600, marginBottom: 16 },
-  chartHint: { marginTop: 10, fontSize: 14, color: '#6B7280', textAlign: 'center' }
+    appContainer: { display: 'flex', height: '100vh', backgroundColor: '#F3F4F6' },
+    sidebar: { width: '260px', backgroundColor: '#fff', borderRight: '1px solid #E5E7EB', display: 'flex', flexDirection: 'column', padding: '24px' },
+    logoContainer: { display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '40px' },
+    logoIcon: { width: '32px', height: '32px', backgroundColor: '#2563EB', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' },
+    logoText: { fontSize: '20px', fontWeight: 'bold', color: '#111827', margin: 0 },
+    nav: { display: 'flex', flexDirection: 'column', gap: '8px' },
+    navItem: { display: 'flex', alignItems: 'center', padding: '12px 16px', borderRadius: '8px', cursor: 'pointer', transition: '0.2s' },
+    navItemActive: { backgroundColor: '#EFF6FF' },
+    navLabel: { marginLeft: '12px', fontSize: '15px', fontWeight: '500' },
+    main: { flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' },
+    header: { height: '70px', backgroundColor: '#fff', borderBottom: '1px solid #E5E7EB', display: 'flex', alignItems: 'center', justifyContent: 'flex-end', padding: '0 32px', position: 'relative' },
+    profileSection: { display: 'flex', alignItems: 'center' },
+    userInfo: { display: 'flex', alignItems: 'center', gap: '12px', borderLeft: '1px solid #E5E7EB', paddingLeft: '20px' },
+    userDetails: { textAlign: 'right' },
+    userName: { display: 'block', fontSize: '14px', fontWeight: '600', color: '#111827' },
+    userRole: { display: 'block', fontSize: '12px', color: '#6B7280' },
+    avatar: { width: '40px', height: '40px', borderRadius: '50%', backgroundColor: '#8B5CF6', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '600', fontSize: '14px' },
+    contentScroll: { flex: 1, padding: '32px', overflowY: 'auto' },
+    notificationPopup: { position: 'absolute', top: '40px', right: '0', width: '300px', backgroundColor: 'white', border: '1px solid #E5E7EB', borderRadius: '12px', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)', zIndex: 50, overflow: 'hidden' },
+    popupHeader: { padding: '12px 16px', borderBottom: '1px solid #E5E7EB', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#F9FAFB' },
+    notificationList: { maxHeight: '300px', overflowY: 'auto' },
+    notificationItem: { padding: '12px 16px', borderBottom: '1px solid #F3F4F6', display: 'flex', gap: '10px', alignItems: 'flex-start' },
+    popupFooter: { padding: '10px', textAlign: 'center', fontSize: '12px', color: '#2563EB', fontWeight: '600', cursor: 'pointer', borderTop: '1px solid #E5E7EB', backgroundColor: '#F9FAFB' }
 };
 
 export default MainApp;

@@ -9,7 +9,7 @@ const LandingPage = () => {
       {/* Navigation */}
       <nav className="landing-nav">
         <div className="container nav-content">
-          <div className="logo">Flux<span>.AI</span></div>
+          <div className="logo">Capital<span> OS</span></div>
           <div className="nav-links">
             <a href="#how-it-works">How It Works</a>
             <a href="#features">Features</a>
@@ -24,7 +24,7 @@ const LandingPage = () => {
         <div className="container hero-container">
           <div className="hero-text">
             <h1>Financial Unity,<br /><span>Powered by AI.</span></h1>
-            <p>Flux unifies your data, analyzes spending intelligently, and detects fraud in real-time. It's the only financial decision engine you'll ever need.</p>
+            <p>Capital.OS unifies your data, analyzes spending intelligently, and detects fraud in real-time. It's the only financial decision engine you'll ever need.</p>
             <button onClick={() => navigate('/signup')} className="btn-primary">View Live Demo</button>
           </div>
           <div className="hero-image-wrapper">
@@ -75,7 +75,7 @@ const LandingPage = () => {
             </div>
             <div className="feature-text">
                 <h3>Optimize Your Spend Efficiency</h3>
-                <p>We don't just track your money; we refine it. Flux analyzes your outflow to identify "vampire costs"—like unused subscriptions and impulse spikes—turning waste into wealth.</p>
+                <p>We don't just track your money; we refine it. Capital analyzes your outflow to identify "vampire costs"—like unused subscriptions and impulse spikes—turning waste into wealth.</p>
                 <ul className="check-list">
                     <li><span className="check-icon">✓</span> Detect Recurring Waste Patterns</li>
                     <li><span className="check-icon">✓</span> Smart Subscription Audit</li>
@@ -108,9 +108,9 @@ const LandingPage = () => {
       {/* Footer */}
       <footer>
         <div className="container">
-          <div className="footer-logo">Flux<span>.AI</span></div>
+          <div className="footer-logo">Capital<span> OS</span></div>
           <p style={{ opacity: 0.7 }}>Empowering smarter financial decisions for everyone.</p>
-          <div className="copyright">&copy; 2024 Flux Project. Designed for the Hackathon.</div>
+          <div className="copyright">&copy; 2025 Capital Project. Designed for the Hackathon.</div>
         </div>
       </footer>
 

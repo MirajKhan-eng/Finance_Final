@@ -1,0 +1,37 @@
+{
+  "user": {
+    "name": "Miraj Khan",
+    "role": "Premium Member",
+    "avatar": "MK"
+  },
+  "dashboard": {
+    "balance": 328000,
+    "monthlySpend": 45000,
+    "pieData": [
+      { "name": "Housing", "value": 35, "color": "#3B82F6" },
+      { "name": "Food", "value": 25, "color": "#10B981" },
+      { "name": "Transport", "value": 15, "color": "#F59E0B" },
+      { "name": "Shopping", "value": 15, "color": "#EC4899" },
+      { "name": "Others", "value": 10, "color": "#6366F1" }
+    ],
+    "barData": [
+      { "name": "Week 1", "budget": 5000, "actual": 4200 },
+      { "name": "Week 2", "budget": 5000, "actual": 4800 },
+      { "name": "Week 3", "budget": 5000, "actual": 5100 },
+      { "name": "Week 4", "budget": 5000, "actual": 3900 }
+    ]
+  },
+  "transactions": [
+    { "id": 1, "title": "Starbucks Coffee", "category": "Food", "date": "2024-03-10", "amount": -450, "type": "expense" },
+    { "id": 2, "title": "Salary Credit", "category": "Salary", "date": "2024-03-01", "amount": 85000, "type": "income" },
+    { "id": 3, "title": "Uber Ride", "category": "Transport", "date": "2024-03-09", "amount": -320, "type": "expense" },
+    { "id": 4, "title": "Netflix Subscription", "category": "Entertainment", "date": "2024-03-05", "amount": -649, "type": "expense" },
+    { "id": 5, "title": "Freelance Payment", "category": "Income", "date": "2024-03-04", "amount": 12000, "type": "income" },
+    { "id": 6, "title": "Grocery Shopping", "category": "Food", "date": "2024-03-02", "amount": -2500, "type": "expense" },
+    { "id": 7, "title": "Electric Bill", "category": "Utilities", "date": "2024-03-01", "amount": -1800, "type": "expense" }
+  ],
+  "goals": [
+    { "id": 1, "title": "MacBook Pro M3", "category": "Luxury", "current": 120000, "target": 200000, "deadline": "2024-12-25", "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=1000", "monthlyContrib": 5000 },
+    { "id": 2, "title": "Emergency Fund", "category": "Emergency Fund", "current": 50000, "target": 100000, "deadline": "2025-06-01", "image": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=1000", "monthlyContrib": 2000 }
+  ]
+}
