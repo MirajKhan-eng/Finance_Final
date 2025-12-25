@@ -1,0 +1,192 @@
+/* src/screens/BudgetCalculator.css */
+
+/* --- Layout & Containers --- */
+.bc-container {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: #333;
+}
+
+.bc-title-section {
+  max-width: 1100px;
+  margin: 0 auto 40px auto;
+  text-align: center;
+}
+
+.bc-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.bc-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Desktop: Split into 2 columns (Left wider than Right) */
+@media (min-width: 992px) {
+  .bc-grid {
+    grid-template-columns: 8fr 4fr;
+  }
+}
+
+/* --- Left Card (Inputs) --- */
+.bc-card-white {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  border: 1px solid #e5e7eb;
+}
+
+.bc-divider {
+  height: 1px;
+  background-color: #f3f4f6;
+  margin: 40px 0;
+}
+
+.bc-slider-container {
+  margin-bottom: 35px;
+}
+
+/* --- Custom Slider Styling --- */
+.bc-slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 12px;
+}
+
+.bc-label {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.bc-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.bc-slider-wrapper {
+  position: relative;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* The invisible input that handles the dragging */
+.bc-range-input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 20;
+  cursor: pointer;
+  margin: 0;
+}
+
+/* The gray background track */
+.bc-track {
+  position: absolute;
+  width: 100%;
+  height: 8px;
+  background-color: #e6efff; /* Light blueish gray */
+  border-radius: 999px;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* The Blue Fill */
+.bc-track-fill {
+  height: 100%;
+  background-color: #007bff; /* The FinScopeHub Blue */
+}
+
+/* The Round Handle (Thumb) */
+.bc-thumb {
+  position: absolute;
+  height: 24px;
+  width: 24px;
+  background-color: #007bff;
+  border: 4px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 10;
+  pointer-events: none; /* Let clicks pass through to the input */
+  transform: translateX(-12px); /* Center the thumb on the value */
+}
+
+.bc-slider-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.bc-desc {
+  font-size: 14px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+/* --- Right Card (Summary) --- */
+.bc-card-blue {
+  background-color: #007bff; /* Matches the image exactly */
+  color: #ffffff;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 10px 25px rgba(0, 123, 255, 0.25);
+  position: sticky;
+  top: 24px;
+}
+
+.bc-summary-item {
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.bc-summary-label {
+  display: block;
+  font-size: 14px;
+  color: #dbeafe;
+  margin-bottom: 4px;
+}
+
+.bc-summary-value {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.bc-summary-sub {
+  display: block;
+  font-size: 12px;
+  color: #bfdbfe;
+  margin-top: 8px;
+}
+
+.bc-footer-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.bc-footer-text {
+  font-size: 14px;
+  color: #dbeafe;
+  line-height: 1.5;
+  opacity: 0.9;
+}
