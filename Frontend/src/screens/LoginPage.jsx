@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import api from "../api/api";
 import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
@@ -6,25 +7,48 @@ const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    // In a real app, you would check credentials here.
-    // For now, we simply navigate to the Dashboard.
-    navigate('/app/dashboard');
-  };
+  const handleLogin = async (e) => {
+  e.preventDefault();
+
+  try {
+    const res = await fetch("http://localhost:8000/auth/login/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",   // 🔥 REQUIRED
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.error || "Login failed");
+      return;
+    }
+
+    navigate("/app/dashboard");
+  } catch (err) {
+    alert("Server error");
+  }
+};
+
 
   return (
     <div className="auth-body">
       <div className="login-visual">
         <div className="visual-content">
           <h2>Financial clarity, finally.</h2>
-          <p>Join thousands of professionals who trust Capital to secure and optimize their wealth.</p>
+          <p>Join thousands of professionals who trust Flux to secure and optimize their wealth.</p>
         </div>
       </div>
 
       <div className="login-form-container">
         <div className="login-card">
-          <div className="logo">Capital<span> OS</span></div>
+          <div className="logo">Flux<span>.AI</span></div>
           <div className="header-text">
             <h1>Welcome back</h1>
             <p>Please enter your details to Login.</p>
