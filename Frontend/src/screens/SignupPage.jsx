@@ -33,7 +33,7 @@ const SignupPage = () => {
 
       <div className="signup-form-container">
         <div className="signup-card">
-          <div className="logo">Flux<span>.AI</span></div>
+          <div className="logo">Caopital<span> OS</span></div>
 
           <div className="header-text">
             <h1>Create an account</h1>

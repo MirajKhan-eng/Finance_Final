@@ -48,7 +48,7 @@ const LoginPage = () => {
 
       <div className="login-form-container">
         <div className="login-card">
-          <div className="logo">Flux<span>.AI</span></div>
+          <div className="logo">Capital<span> OS</span></div>
           <div className="header-text">
             <h1>Welcome back</h1>
             <p>Please enter your details to Login.</p>
